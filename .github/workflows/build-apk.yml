@@ -22,8 +22,10 @@ jobs:
 
       - name: Installer le SDK Android
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          SDKMANAGER=$(find "$ANDROID_SDK_ROOT/cmdline-tools" -name sdkmanager | head -n 1)
+          echo "sdkmanager trouvé : $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses || true
+          "$SDKMANAGER" "platform-tools" "platforms;android-34" "build-tools;34.0.0"
         env:
           ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
