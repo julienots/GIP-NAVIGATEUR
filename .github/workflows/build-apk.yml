@@ -21,7 +21,11 @@ jobs:
           java-version: '17'
 
       - name: Installer le SDK Android
-        uses: android-actions/setup-android@v3
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+        env:
+          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
       - name: Générer le wrapper Gradle
         working-directory: Gip
